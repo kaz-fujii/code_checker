@@ -1,11 +1,18 @@
 #!/usr/bin/python
-import sys
+import argparse
 import re
+import sys
+
+parser = argparse.ArgumentParser(
+            description='Check lines do not end with a white space.')
+parser.add_argument('filename',  type=argparse.FileType('r'),
+                    help='a file to be checked')
+f = parser.parse_args().filename
 
 line_no = 0
 space_exists = False
 
-for line in sys.stdin:
+for line in f:
     line_no += 1
     pattern = r' +$'
     if re.search(pattern, line):
